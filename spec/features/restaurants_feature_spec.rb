@@ -8,6 +8,11 @@ feature 'restaurants' do
     password: 'testtest'
   }
 
+  user2  = {
+    email: 'test1@example.com',
+    password: 'testtest'
+  }
+
   restaurant = {
     name: "Itadaki Zen"
   }
@@ -84,6 +89,16 @@ feature 'restaurants' do
       expect(page).to have_content "Pizzeria Gdynianka"
       expect(page).to have_content "Cozy plaze with homemade picca"
       expect(current_path).to eq "/restaurants/#{Restaurant.first.id}"
+    end
+
+    scenario 'a user can only edit their own restaurant' do
+      sign_up(user)
+      add_restaurant(restaurant)
+      click_link 'Sign out'
+      sign_up(user2)
+      visit '/restaurants'
+      expect(page).not_to have_link "Edit Itadaki Zen"
+      expect(page).not_to have_link "Delete Itadaki Zen"
     end
   end
 
