@@ -1,7 +1,11 @@
 <% if @restaurants.any? %>
   <% @restaurants.each do |restaurant| %>
     <h2><%= link_to restaurant.name, restaurant_path(restaurant) %></h2>
-    <h3>Average rating: <%= restaurant.average_rating %></h3>
+    <%if restaurant.average_rating == "N/A"%>
+      <h3>Average rating: N/A %></h3>
+    <%else%>
+      <h3>Average rating: <%= "★" * restaurant.average_rating + "☆"* (5-restaurant.average_rating)%></h3>
+    <%end%>
     <% if restaurant.belongs_to_user?(current_user)%>
 
     <%= link_to "Edit #{restaurant.name}", edit_restaurant_path(restaurant) %>
