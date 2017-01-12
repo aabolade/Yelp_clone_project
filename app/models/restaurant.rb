@@ -11,7 +11,8 @@ class Restaurant < ApplicationRecord
   end
 
   def average_rating
-    "N/A"
+    return "N/A" if self.reviews == []
+    self.reviews.inject(0) {|memo, review| memo + review.rating}/ (self.reviews.length)
   end
 
 end
