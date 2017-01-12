@@ -4,5 +4,9 @@ class Review < ApplicationRecord
 
   validates :rating, inclusion: (1..5)
   validates :user, uniqueness: { scope: :restaurant, message: "has reviewed this restaurant already" }
-  
+
+  def belongs_to?(user)
+    self.user == user
+  end
+
 end

@@ -6,10 +6,6 @@ class ReviewsController < ApplicationController
 
   def create
     @restaurant = Restaurant.find(params[:restaurant_id])
-    # if current_user.has_reviewed? @restaurant
-    #   flash.next[:error] = ["You can only review restaurant once"]
-    #   redirect_to '/restaurants'
-    # end
     review = @restaurant.reviews.new(review_params)
     review.user = current_user
     if review.save
@@ -22,6 +18,20 @@ class ReviewsController < ApplicationController
         render :new
       end
     end
+  end
+
+  def destroy
+    @restaurant = Restaurant.find(params[:restaurant_id])
+    @review = Review.find(params[:id])
+
+    unless @review.belongs_to?(current_user)
+      flash.next[:error] = ["You cannot delete this review"]
+      redirect_to '/restaurants'
+    end
+
+    @review.destroy
+    flash[:notice] = 'Review deleted successfully'
+    redirect_to '/restaurants'
   end
 
   private

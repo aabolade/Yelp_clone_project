@@ -12,6 +12,9 @@
     <% if restaurant.reviews.any? %>
       <% restaurant.reviews.all.each { |review| %>
         <%= review.thoughts %>
+        <% if review.belongs_to?(current_user) %>
+        <%= link_to "Delete Your Review", restaurant_review_path(restaurant, review), method: :delete %>
+        <% end %>
         <% } %>
     <% end %>
     <% unless current_user && current_user.has_reviewed?(restaurant) %>
