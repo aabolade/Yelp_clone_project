@@ -15,7 +15,10 @@
     <%end%>
     <% if restaurant.reviews.any? %>
       <% restaurant.reviews.all.each { |review| %>
-        <%= review.thoughts %>
+        Review: <%= review.thoughts %>
+        Rating: <%= "★" * review.rating + "☆" * (5-review.rating)%>
+        Endorsements: <% review.endorsements.length %>
+        <%= link_to "Endorse Review", restaurant_review_endorsement_path(restaurant.id,review.id), method: :post%>
         <% if review.belongs_to?(current_user) %>
         <%= link_to "Delete Your Review", restaurant_review_path(restaurant, review), method: :delete %>
         <% end %>
