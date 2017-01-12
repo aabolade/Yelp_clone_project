@@ -4,7 +4,7 @@ $(document).ready(function() {
 
     var endorsementCount = $(this).siblings('.endorsements_count');
 
-    $.post(this.href, function(response) {
+    $.get(this.href, function(response) {
       endorsementCount.text(response.new_endorsement_count);
     })
   })
