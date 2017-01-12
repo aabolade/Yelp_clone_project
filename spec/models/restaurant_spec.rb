@@ -16,4 +16,13 @@ describe Restaurant, type: :model do
     restaurant = Restaurant.new(name: "Itadaki Zen")
     expect(restaurant).to have(1).error_on(:name)
   end
+
+  describe "#average_rating" do
+    context "no reviews" do
+      it "Returns 'N/A' when thre are no reviews" do
+        restaurant = Restaurant.create(name: "Leke's Best")
+        expect(restaurant.average_rating).to eq "N/A"
+      end
+    end
+  end
 end

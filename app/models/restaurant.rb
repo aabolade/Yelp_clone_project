@@ -10,4 +10,8 @@ class Restaurant < ApplicationRecord
     self.user == user
   end
 
+  def average_rating
+    "N/A"
+  end
+
 end

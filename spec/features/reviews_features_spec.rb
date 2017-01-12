@@ -8,6 +8,11 @@ feature 'reviewing' do
     password: 'testtest'
   }
 
+  user2  = {
+    email: 'test1@example.com',
+    password: 'testtest'
+  }
+
   restaurant = {
     name: "Itadaki Zen"
   }
@@ -37,5 +42,15 @@ feature 'reviewing' do
         expect(current_path).to eq '/restaurants'
         expect(page).not_to have_content('A piece of heaven')
     end
+  end
+
+  scenario "displays an average rating for all reviews" do
+    sign_up(user)
+    add_restaurant(restaurant)
+    leave_review("bla bla", "3")
+    click_link("Sign out")
+    sign_up(user2)
+    leave_review("Wow, wow! Many amaze!", "5")
+    expect(page).to have_content("Average rating: 4")
   end
 end
