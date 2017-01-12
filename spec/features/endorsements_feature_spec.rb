@@ -18,7 +18,7 @@ feature "endorsing reviews" do
     click_button "Leave Review"
   end
 
-  scenario "a user can endorse a review, which updates the review endorsement count" do
+  scenario "a user can endorse a review, which updates the review endorsement count", js: true do
     visit '/restaurants'
     click_link "Endorse Review"
     expect(page).to have_content('Number of endorsements: 1')
